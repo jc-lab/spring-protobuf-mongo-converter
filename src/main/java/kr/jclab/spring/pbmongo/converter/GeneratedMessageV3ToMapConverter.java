@@ -18,8 +18,9 @@ public class GeneratedMessageV3ToMapConverter implements Converter<GeneratedMess
     @Override
     public Map<String, Object> convert(GeneratedMessageV3 source) {
         HashMap<String, Object> map = new HashMap<>();
-        for(Map.Entry<Descriptors.FieldDescriptor, Object> entry : source.getAllFields().entrySet()) {
-            map.put(entry.getKey().getName(), mongoConverter.convertToMongoType(entry.getValue()));
+        for (Descriptors.FieldDescriptor entry : source.getDescriptorForType().getFields()) {
+            Object value = source.getField(entry);
+            map.put(entry.getName(), mongoConverter.convertToMongoType(value));
         }
         return map;
     }
