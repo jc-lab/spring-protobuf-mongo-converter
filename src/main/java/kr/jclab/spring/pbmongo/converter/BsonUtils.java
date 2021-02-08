@@ -2,6 +2,7 @@ package kr.jclab.spring.pbmongo.converter;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonToken;
+import org.bson.types.Binary;
 
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,10 @@ public class BsonUtils {
     }
 
     public static JsonElement toJsonElement(Object o) {
+        if (o instanceof Binary) {
+            Binary v = (Binary)o;
+            return new JsonBinary(v.getData());
+        }
         switch (findTypeAdapter(o)) {
             case STRING:
                 return new JsonPrimitive((String)o);

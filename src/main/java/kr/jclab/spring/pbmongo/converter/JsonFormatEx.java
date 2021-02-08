@@ -46,6 +46,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.text.ParseException;
 import java.util.*;
 import java.util.logging.Logger;
@@ -1919,6 +1920,8 @@ public class JsonFormatEx {
                     return field.getEnumType().findValueByNumber(0);
                 }
                 return null;
+            } else if (json instanceof JsonBinary) {
+                return ByteString.copyFrom(((JsonBinary) json).getValue());
             } else if (json instanceof JsonObject) {
                 if (field.getType() != Type.MESSAGE
                         && field.getType() != Type.GROUP) {

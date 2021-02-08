@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package jclab.test;
+option java_package = "kr.jclab.spring.pbmongo.testproto";
+option java_outer_classname = "TestProto";
+
+message ManyTypesMessage {
+  bool data_bool = 1;
+  int32 data_int32 = 2;
+  int64 data_int64 = 3;
+  float data_float = 4;
+  string data_string = 5;
+  bytes data_bytes = 6;
+  SmallMessage data_message = 7;
+  repeated string data_repeated_string = 8;
+  repeated SmallMessage data_repeated_message = 9;
+}
+
+message SmallMessage {
+  string data = 1;
+}

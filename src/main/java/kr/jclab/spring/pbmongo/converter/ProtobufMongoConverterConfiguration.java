@@ -1,6 +1,8 @@
 package kr.jclab.spring.pbmongo.converter;
 
+import com.google.protobuf.ByteString;
 import com.google.protobuf.GeneratedMessageV3;
+import org.bson.types.Binary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ public class ProtobufMongoConverterConfiguration {
         logger.info("initMappingMongoConverter");
         mongoConverter.setCustomConversions(customConversions);
         ConverterRegistry converterRegistry = (ConverterRegistry)mongoConverter.getConversionService();
+        converterRegistry.addConverter(ByteString.class, Binary.class, new ByteStringToBinaryConverter());
+        converterRegistry.addConverter(Binary.class, ByteString.class, new BinaryToByteStringConverter());
         converterRegistry.addConverter(GeneratedMessageV3.class, Map.class, new GeneratedMessageV3ToMapConverter(mongoConverter));
         converterRegistry.addConverter(new DocumentToGeneratedMessageV3Converter());
     }
