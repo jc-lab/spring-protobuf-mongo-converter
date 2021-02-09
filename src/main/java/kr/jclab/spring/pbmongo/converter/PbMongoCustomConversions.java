@@ -1,8 +1,7 @@
 package kr.jclab.spring.pbmongo.converter;
 
-import com.google.protobuf.ByteString;
 import com.google.protobuf.GeneratedMessageV3;
-import org.bson.types.Binary;
+import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
 
 import java.util.Collections;
@@ -19,15 +18,15 @@ public class PbMongoCustomConversions extends MongoCustomConversions {
         super(converters);
     }
 
-
-
     @Override
     public Optional<Class<?>> getCustomWriteTarget(Class<?> sourceType) {
         if (GeneratedMessageV3.class.isAssignableFrom(sourceType)) {
             return Optional.of(Map.class);
         }
-        if (ByteString.class.isAssignableFrom(sourceType)) {
-            return Optional.of(Binary.class);
+        for (GenericConverter.ConvertiblePair pair : ProtobufMongoConverterConfiguration.PrimitiveConvertHelper.WRITE_CONVERTIBLE_PAIRS) {
+            if (pair.getSourceType().isAssignableFrom(sourceType)) {
+                return Optional.of(pair.getTargetType());
+            }
         }
         return super.getCustomWriteTarget(sourceType);
     }
@@ -40,9 +39,6 @@ public class PbMongoCustomConversions extends MongoCustomConversions {
     @Override
     public boolean hasCustomReadTarget(Class<?> sourceType, Class<?> targetType) {
         if (GeneratedMessageV3.class.isAssignableFrom(targetType)) {
-            return true;
-        }
-        if (ByteString.class.isAssignableFrom(targetType)) {
             return true;
         }
         return super.hasCustomReadTarget(sourceType, targetType);

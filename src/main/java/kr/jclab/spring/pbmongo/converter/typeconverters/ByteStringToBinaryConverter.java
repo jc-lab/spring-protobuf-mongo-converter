@@ -1,4 +1,4 @@
-package kr.jclab.spring.pbmongo.converter;
+package kr.jclab.spring.pbmongo.converter.typeconverters;
 
 import com.google.protobuf.ByteString;
 import org.bson.types.Binary;
