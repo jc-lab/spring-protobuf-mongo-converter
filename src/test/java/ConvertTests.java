@@ -37,6 +37,7 @@ public class ConvertTests {
                                 .setData("DDDD")
                                 .build()
                 )
+                .setCake(TestProto.Cake.Crepe)
                 .build();
     }
 

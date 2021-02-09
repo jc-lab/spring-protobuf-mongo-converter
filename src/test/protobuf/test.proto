@@ -14,8 +14,16 @@ message ManyTypesMessage {
   SmallMessage data_message = 7;
   repeated string data_repeated_string = 8;
   repeated SmallMessage data_repeated_message = 9;
+  Cake cake = 10;
 }
 
 message SmallMessage {
   string data = 1;
+}
+
+enum Cake {
+    ChocolateCake = 0;
+    CheeseCake = 1;
+    IceCreamCake = 2;
+    Crepe = 10;
 }
