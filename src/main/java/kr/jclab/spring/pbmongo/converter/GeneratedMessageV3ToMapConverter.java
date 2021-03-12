@@ -21,7 +21,7 @@ public class GeneratedMessageV3ToMapConverter implements Converter<GeneratedMess
         Map map = new HashMap();
         for (Object item : list) {
             MapEntry entry = (MapEntry)item;
-            map.put(entry.getKey(), mongoConverter.convertToMongoType(entry.getValue()));
+            map.put(String.valueOf(entry.getKey()), mongoConverter.convertToMongoType(entry.getValue()));
         }
         return map;
     }
