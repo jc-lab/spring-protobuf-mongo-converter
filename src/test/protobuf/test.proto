@@ -15,6 +15,11 @@ message ManyTypesMessage {
   repeated string data_repeated_string = 8;
   repeated SmallMessage data_repeated_message = 9;
   Cake cake = 10;
+  map<int32, string> data_map = 11;
+}
+
+message SingleMapMessage {
+  map<int32, string> data_map = 1;
 }
 
 message SmallMessage {

@@ -45,8 +45,9 @@ public class BsonUtils {
                 return array;
             case BEGIN_OBJECT:
                 JsonObject object = new JsonObject();
-                for (Map.Entry<String, Object> entry : ((Map<String, Object>)o).entrySet()) {
-                    object.add(entry.getKey(), toJsonElement(entry.getValue()));
+                for (Object item : ((Map)o).entrySet()) {
+                    Map.Entry<?, ?> entry = (Map.Entry<?, ?>)item;
+                    object.add(String.valueOf(entry.getKey()), toJsonElement(entry.getValue()));
                 }
                 return object;
             case END_DOCUMENT:
